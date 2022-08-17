@@ -36,7 +36,8 @@ namespace ConsoleApp1
 
         public object Clone()
         {
-            return (Human)this.MemberwiseClone();
-        }       
+            //return (Human)this.MemberwiseClone();
+            return new Human(Height, EyesColor, Sex, PetNames);
+        }
     }
 }

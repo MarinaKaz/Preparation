@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 /*4.Написать метод, который принимает массив значений int и сортирует его пузырьком. Написать, а не разобрать! 
@@ -11,25 +13,29 @@ namespace ConsoleApp1
     {
         public int[] BubbleSort(int[] numbers)
         {
-            int temp = numbers[0];
-            for (int i = 0; i < numbers.Length; i++)
+            int temp;
+            for (int k = 0; k <= numbers.Length - 2; k++)
             {
-                for (int j = i+1; j < numbers.Length; j++)
+                for (int i = 0; i <= numbers.Length - 2; i++)
                 {
-                    if (numbers[i] > numbers[j])
+                    if (numbers[i] > numbers[i + 1])
                     {
-                        temp = numbers[i];
-                        numbers[i] = numbers[j];
-                        numbers[j] = temp;
+                        temp = numbers[i + 1];
+                        numbers[i + 1] = numbers[i];
+                        numbers[i] = temp;
                     }
                 }
             }
             return numbers;
         }
 
-        public string CapitalizeString(string str)
+        public string CapitalizeString(string str, string pathToFile)
         {
-            str = Regex.Replace(str, @"[a-z]", element => element.ToString().ToUpper());
+            var dictionary = new Dictionary<string, string>();
+            foreach (var row in File.ReadAllLines(pathToFile))
+            dictionary.Add(row.Split('=')[0], string.Join("=", row.Split('=').Skip(1).ToArray()));
+
+            str = Regex.Replace(str, @"[a-z]", element => dictionary[element.ToString()]);
             return str;
         }
 
