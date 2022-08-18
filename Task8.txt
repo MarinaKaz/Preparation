@@ -1,0 +1,29 @@
+2. Есть директория с файлами и директориями и файлами любой степени вложенности. Написать метод, который файлы, лежащие прямо 
+в родительской директории не трогает, но все файлы на любом уровне вложенности в директориях ниже - удалит.
+Как пример
+[директория] Dir1
+- Файл1.txt
+- Файл2.txt
+- [директория] Dir2
+--- Файл3.txt
+--- Файл4.txt
+- [директория] Dir3
+--- [директория] Dir4
+----- Файл5.txt
+метод должен удалить файлы 3, 4 и 5. Остальное не трогать.
+
+public void RemoveFile(string parentDir) 
+{
+	DirectoryInfo dir = new DirectoryInfo(parentDir);
+	DirectoryInfo[] childDirs = dir.GetDirectories;
+	
+	foreach (DirectoryInfo chilDir in childDirs) 
+	{
+		FileInfo[] files = chilDir.GetFiles();
+		foreach (FileInfo file in files) 
+		{
+			file.Delete();
+		}
+		files.clear();
+	}
+}

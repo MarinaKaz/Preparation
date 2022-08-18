@@ -1,0 +1,54 @@
+1. Есть дата/время в виде строки в американском формате Aug 12, 2022 1:14PM
+Написать метод, который конвертирует его в формат вида 2022-08-12 13:14
+
+Решение 1.
+public string ConvertData(string dataInput)
+{
+	DateTime convertedDate = DateTime.Parse(dataInput);
+	return convertedDate.ToString("yyyy-MM-dd HH:mm");
+}
+
+
+
+
+
+Решение 2. - если рассматривать это задание как манипуляции со строками(т.е. не прибегать к использованию DateTime методов)
+public string ConvertData(string dataInput)
+{   
+    string month = (dataInput.Substring(0, 4)).Trim();
+    string data = (dataInput.Substring(dataInput.IndexOf(" "), 3)).Trim().Replace(",", "");
+    string year = (dataInput.Substring(dataInput.IndexOf(",") + 1, 5)).Trim();
+    string mm = dataInput.Substring(dataInput.IndexOf(":") + 1, 2);
+    string hh = dataInput.Substring(dataInput.IndexOf(":") - 2, 2).Trim();
+    string format = (dataInput[dataInput.Length - 2]).ToString();	
+	int newhhFormat = 0;
+
+	 if (format == "P" && Int32.Parse(hh) < 10)
+        {
+            newhhFormat = Int32.Parse(hh) + 12;
+        }
+	else 
+		newhhFormat = Int32.Parse(hh);
+		
+	convertedData = year + "-" + ConvertMonthToNumber(month) + "-" + data + " " + newhhFormat + ":" + mm;	
+	
+	return convertedData;
+}
+
+public string ConvertMonthToNumber(string month) 
+{
+	switch (month)
+    {
+        case "Jun":
+        return "01";
+		break;
+		.....
+		case "Aug":
+        return "08";
+        break;
+		.....
+        case "Dec":
+        return "12";
+        break;
+    }
+}
